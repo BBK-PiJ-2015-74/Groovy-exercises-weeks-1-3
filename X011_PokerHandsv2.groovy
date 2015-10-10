@@ -13,7 +13,7 @@ println "Welcome to Poker Hands!"
 println "First, pick the suit of your card: it can be clubs, spades, hearts or diamonds"
 println "Enter C for clubs, S for spades, H for hearts, D for diamonds"
 println "Then, pick the number of your card: it can be 1,2,3,4,5,6,7,8,9,10,J,Q,K"
-println "For example, enter C01 which is the ace of clubs, or DK which is the King of diamonds"
+println "For example, enter C1 which is the ace of clubs, or DK which is the King of diamonds"
 
 String card1, card2, card3, card4, card5
 
@@ -52,81 +52,78 @@ println suit + " " + rank
 		} else if (rank == "K") {
 			numrank = 13
 		}
-		
+println numrank		
 		
 	if (i == 1) {							//for i = 1, assign values to numrank, rank and suit from 1st card
-		numrank = numrank1
-		rank = rank1
-		suit = suit1
-	}
-	println "Rank value is" + " " + numrank1
-	println "The card you entered was " + suit1 + rank1
+		numrank1 = numrank
+		rank1 = rank
+		suit1 = suit
+		println "Rank value is" + " " + numrank1
+		println "The card you entered was " + suit1 + rank1
+	}	// End of loop i=1
 									
 		
 	if (i == 2) {
-		numrank = numrank2
-		rank = rank2
-		suit = suit2
-	}
-	println "Rank value is" + " " + numrank2
-	println "The card you entered was " + suit2 + rank2
-		
-	if (numrank2 > numrank1) {
-		numrank2 = max
-		numrank1 = min 
-	} else { 
-		numrank2 = min
-		numrank1 = max 
-	}
+		numrank2 = numrank
+		rank2 = rank
+		suit2 = suit
+		println "Rank value is" + " " + numrank2
+		println "The card you entered was " + suit2 + rank2
 
-	println "Cards sorted by rank are " + min + " " + max
+		if (numrank2 > numrank1) {
+			numrank2 = max
+			numrank1 = min 
+		} else { 
+			numrank2 = min
+			numrank1 = max 
+		}
+		println "Cards sorted by rank are " + min + " " + max
+	}									//End of loop i=2
 	
 	if (i == 3) {
-			numrank = numrank3
-			rank = rank3
-			suit = suit3
-	}
-	println "Rank value is" + " " + numrank3
-	println "The card you entered was " + suit3 + rank3
+		numrank3 = numrank
+		rank3 = rank
+		suit3 = suit
+		println "Rank value is" + " " + numrank3
+		println "The card you entered was " + suit3 + rank3
 	
 	
-	if (numrank3 >= max) {
-		numrank3 = max
-	} else if ((numrank3 <= max) && (numrank3 >= min)) {
-		numrank3 = middle
-	} else if (numrank3 <= min) {
+		if (numrank3 >= max) {
+			numrank3 = max
+		} else if ((numrank3 <= max) && (numrank3 >= min)) {
+			numrank3 = middle
+		} else if (numrank3 <= min) {
 		numrank3 = min  
-	}
-	
-	println "Cards sorted by rank are " + min + " " + middle + " " + max 	// min, middle, max
+		}
+		println "Cards sorted by rank are " + min + " " + middle + " " + max 	// min, middle, max
+	} // End of loop 3
 	
 	if (i == 4) {
-			numrank = numrank4
-			rank = rank4
-			suit = suit4
-	}	
-	if (numrank4 >= max) {
-		numrank4 = max
-	} else if ((numrank4 <= max) && (numrank4 >= middle)) {
-		numrank4 = maxmed
-	} else if (numrank 4 == middle) {
-		numrank4 = middle
-	} else if ((numrank4 <= middle) && (numrank4 >= min)) {
-		numrank4 = minmed
-	} else if (numrank4 <= min) {
-		numrank4 = min
-	}
+		numrank4 = numrank
+		rank4 = rank
+		suit4 = suit
+		
+		if (numrank4 >= max) {
+			numrank4 = max
+		} else if ((numrank4 <= max) && (numrank4 >= middle)) {
+			numrank4 = maxmed
+		} else if (numrank4 == middle) {
+			numrank4 = middle
+		} else if ((numrank4 <= middle) && (numrank4 >= min)) {
+			numrank4 = minmed
+		} else if (numrank4 <= min) {
+			numrank4 = min
+		}
+	println "Cards sorted by rank are " + min + " " + minmed + " " + middle + " " + maxmed + " " + max 	// min, minmed, middle, maxmed, max
+	} // End of loop 4
 	
-	println "Cards sorted by rank are " + min + " " + minmed + " " + middle + " " + medmax + " " + max 	// min, minmed, middle, medmax, max
 	
 	if (i == 5) {
-			numrank = numrank5
-			rank = rank5
-			suit = suit5
-	}	
-	
-	println "Cards sorted by rank are " + min + " " + minmed + " " + middle + " " + medmax + " " + max 	// min, minmed, middle, medmax, max
-	
+		numrank5 = numrank
+		rank5 = rank
+		suit5 = suit	
+	println "Cards sorted by rank are " + min + " " + minmed + " " + middle + " " + maxmed + " " + max 	// min, minmed, middle, maxmed, max
+	} // End of loop 5
 
 // validate the card has been entered correctly 
 
@@ -139,4 +136,3 @@ println suit + " " + rank
 //work out a straight flush
 
 // if (((suit1 == suit2) && (suit2 == suit3) && (suit3 == suit4) && (suit4 == suit5)) && rank1 + rank2 + rank3 + rank 
-
