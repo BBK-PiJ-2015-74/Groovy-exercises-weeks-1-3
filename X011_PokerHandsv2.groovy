@@ -40,6 +40,7 @@ String rank = card.substring(1)
 	println "Card valid"
 	} else {
 	println "Error, please try to enter the card again"
+	break;						// check if you can make this break work differently
 	}
 
 println suit + " " + rank
@@ -71,11 +72,11 @@ println numrank
 		println "The card you entered was " + suit2 + rank2
 
 		if (numrank2 > numrank1) {
-			numrank2 = max
-			numrank1 = min 
+			max = numrank2
+			min = numrank1
 		} else { 
-			numrank2 = min
-			numrank1 = max 
+			min = numrank2
+			max = numrank1 
 		}
 		println "Cards sorted by rank are " + min + " " + max
 	}									//End of loop i=2
@@ -89,11 +90,13 @@ println numrank
 	
 	
 		if (numrank3 >= max) {
-			numrank3 = max
+			middle = max
+			max = numrank3
 		} else if ((numrank3 <= max) && (numrank3 >= min)) {
-			numrank3 = middle
+			middle = numrank3
 		} else if (numrank3 <= min) {
-		numrank3 = min  
+			middle = min
+			min = numrank3
 		}
 		println "Cards sorted by rank are " + min + " " + middle + " " + max 	// min, middle, max
 	} // End of loop 3
