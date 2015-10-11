@@ -4,7 +4,10 @@
 //Straight flush: all cards are of the same suit and their ranks are consecutive. Note that they are probably not ordered as they were entered.
 //Poker: four of the five cards have the same rank.
 //Full House: three of a kind plus two of a kind.
-//Flush: all cards share the same suit, but are not consecutive. Straight: all cards are consecutive, but not of the same suit. Three of a kind: three of the five cards have the same rank. Two pairs: two pairs (see below).
+//Flush: all cards share the same suit, but are not consecutive. 
+//Straight: all cards are consecutive, but not of the same suit. 
+//Three of a kind: three of the five cards have the same rank. 
+//Two pairs: two pairs (see below).
 //Pair: two of the five cards have the same rank.
 //Nothing: any other situation.
 
@@ -210,4 +213,7 @@ String str_rank = card.substring(1)
 
 //work out a straight flush
 
-// if (((suit1 == suit2) && (suit2 == suit3) && (suit3 == suit4) && (suit4 == suit5)) && rank1 + rank2 + rank3 + rank 
+	if ((suit1 == suit2 && suit2 == suit3 && suit3 == suit4 && suit4 == suit5) && (rank5 == rank4 + 1 && rank4 == rank3 + 1 && rank3 == rank2 +1 && rank2 == rank1 + 1)) {
+	String BestHand = "Straight Flush"
+	println "Your best hand is: " + BestHand
+	}
