@@ -1,4 +1,4 @@
-// X011 Poker Hands
+// X011 Lucie's Poker Hands
 
 //Once the program has the five cards, it should tell the user what is the best hand she has got, as per the following list (from best to worst):
 //Straight flush: all cards are of the same suit and their ranks are consecutive. Note that they are probably not ordered as they were entered.
@@ -8,6 +8,7 @@
 //Pair: two of the five cards have the same rank.
 //Nothing: any other situation.
 
+// Could simply by making rank_position the same as rank. Would this preserve suit? It should if suit moves up the array too
 
 println "Welcome to Poker Hands!"
 println "First, pick the suit of your card: it can be clubs, spades, hearts or diamonds"
@@ -15,16 +16,12 @@ println "Enter C for clubs, S for spades, H for hearts, D for diamonds"
 println "Then, pick the number of your card: it can be 1,2,3,4,5,6,7,8,9,10,J,Q,K"
 println "For example, enter C1 which is the ace of clubs, or DK which is the King of diamonds"
 
-String card1, card2, card3, card4, card5
 
 int i = 0
-int min = 0 
-int minmed = 0
-int middle = 0
-int maxmed = 0 
-int max = 0 
-int numrank, numrank1, numrank2, numrank3, numrank4, numrank5
-String rank1, suit1, rank2, suit2, rank3, suit3, rank4, suit4, rank5, suit5
+int rank, rank1, rank2, rank3, rank4, rank5
+int rank_position1, rank_position2, rank_position3, rank_position4, rank_position5
+String suit1, suit2, suit3, suit4, suit5
+String suit_position1, suit_position2, suit_position3, suit_position4, suit_position5
  
 while (i < 5) {
 i++;
@@ -34,101 +31,176 @@ println "Please enter a card"
 String card = System.console().readLine()
 
 String suit = card.substring(0,1)
-String rank = card.substring(1)
+String str_rank = card.substring(1)
 
-	if (((rank =="1") || (rank =="2") || (rank =="3") || (rank =="4") || (rank =="5") || (rank =="6") || (rank =="7") || (rank =="8") || (rank =="9") || (rank =="10") || (rank =="J") || (rank=="Q") || (rank =="K")) && ((suit == "C") || (suit == "S") || (suit == "H") || (suit == "D"))){
-	println "Card valid"
-	} else {
-	println "Error, please try to enter the card again"
-	break;						// check if you can make this break work differently
-	}
+// convert str_rank to an integer and validate
+    switch (str_rank) {
+    case "j":
+    case "J":
+        rank = 11;
+        break;
+    case "q":
+    case "Q":
+        rank = 12;
+        break;
+    case "k":
+    case "K":
+        rank = 13;
+        break;
+    default:
+        rank = Integer.parseInt(str_rank);
+        break;
+    }
 
-println suit + " " + rank
-	if ((rank =="1") || (rank =="2") || (rank =="3") || (rank =="4") || (rank =="5") || (rank =="6") || (rank =="7") || (rank =="8") || (rank =="9") || (rank =="10")) {
-		numrank = Integer.parseInt(rank)      //convert string rank to integer for rank = 1 to 10
-		} else if (rank == "J") {
-			numrank = 11
-		} else if (rank == "Q") {
-			numrank = 12
-		} else if (rank == "K") {
-			numrank = 13
-		}
-println numrank		
+    if (!(rank >= 1 && rank <= 13)) {
+        println "Error; rank must be 0-10, J, Q or K. Please enter the card again."
+        continue;
+    }
+
+// validate card suit
+    switch (suit) {
+    case "s":
+    case "S":
+    case "h":
+    case "H":
+    case "d":
+    case "D":
+    case "c":
+    case "C":
+        break;
+    default:
+        println "Error; card suit must be S, C, H or D. Please enter the card again."
+        continue;
+    }
+
 		
-	if (i == 1) {							//for i = 1, assign values to numrank, rank and suit from 1st card
-		numrank1 = numrank
+	if (i == 1) {							//for i = 1, assign values rank and suit from 1st card
 		rank1 = rank
 		suit1 = suit
-		println "Rank value is" + " " + numrank1
 		println "The card you entered was " + suit1 + rank1
 	}	// End of loop i=1
 									
 		
 	if (i == 2) {
-		numrank2 = numrank
 		rank2 = rank
 		suit2 = suit
-		println "Rank value is" + " " + numrank2
 		println "The card you entered was " + suit2 + rank2
 
-		if (numrank2 > numrank1) {
-			max = numrank2
-			min = numrank1
+		if (rank2 > rank1) {
+			rank_position2 = rank2
+			suit_position2 = suit2
+			rank_position1 = rank1
+			suit_position1 = suit1
 		} else { 
-			min = numrank2
-			max = numrank1 
+			rank_position2 = rank1
+			suit_position2 = suit1
+			rank_position1 = rank2
+			suit_position1 = suit2 
 		}
-		println "Cards sorted by rank are " + min + " " + max
+		println "Cards sorted by rank are " + suit_position1 + rank_position1 + " " + suit_position2 + rank_position2
 	}									//End of loop i=2
 	
 	if (i == 3) {
-		numrank3 = numrank
 		rank3 = rank
 		suit3 = suit
-		println "Rank value is" + " " + numrank3
 		println "The card you entered was " + suit3 + rank3
 	
-	
-		if (numrank3 >= max) {
-			middle = max
-			max = numrank3
-		} else if ((numrank3 <= max) && (numrank3 >= min)) {
-			middle = numrank3
-		} else if (numrank3 <= min) {
-			middle = min
-			min = numrank3
+		if (rank3 >= rank_position2) {
+			rank_position3 = rank3
+			suit_position3 = suit3
+		} else if ((rank3 <= rank_position2) && (rank3 >= rank_position1)) {
+			rank_position3 = rank_position2
+			suit_position3 = suit_position2
+			rank_position2 = rank3
+			suit_position2 = suit3
+		} else if (rank3 <= rank_position1) {
+			rank_position3 = rank_position2
+			suit_position3 = suit_position2
+			rank_position2 = rank_position1
+			suit_position2 = suit_position1
+			rank_position1 = rank3
+			suit_position1 = suit3
 		}
-		println "Cards sorted by rank are " + min + " " + middle + " " + max 	// min, middle, max
+		println "Cards sorted by rank are " + suit_position1 + rank_position1 + " " + suit_position2 + rank_position2 + " " + suit_position3 + rank_position3
 	} // End of loop 3
 	
 	if (i == 4) {
-		numrank4 = numrank
 		rank4 = rank
 		suit4 = suit
-		
-		if (numrank4 >= max) {
-			numrank4 = max
-		} else if ((numrank4 <= max) && (numrank4 >= middle)) {
-			numrank4 = maxmed
-		} else if (numrank4 == middle) {
-			numrank4 = middle
-		} else if ((numrank4 <= middle) && (numrank4 >= min)) {
-			numrank4 = minmed
-		} else if (numrank4 <= min) {
-			numrank4 = min
+		println "The card you entered was " + suit4 + rank4
+	
+		if (rank4 >= rank_position3) {
+			rank_position4 = rank4
+			suit_position4 = suit4
+		} else if ((rank4 <= rank_position3) && (rank4 >= rank_position2)) {
+			rank_position4 = rank_position3
+			suit_position4 = suit_position3
+			rank_position3 = rank4
+			suit_position3 = suit4
+		} else if ((rank4 <= rank_position2) && (rank4 >= rank_position1)) {
+			rank_position4 = rank_position3
+			suit_position4 = suit_position3
+			rank_position3 = rank_position2
+			suit_position3 = suit_position2
+			rank_position2 = rank4
+			suit_position2 = suit4
+		} else if (rank4 <= rank_position1) {
+			rank_position4 = rank_position3
+			suit_position4 = suit_position3
+			rank_position3 = rank_position2
+			suit_position3 = suit_position2
+			rank_position2 = rank_position1
+			suit_position2 = suit_position1
+			rank_position1 = rank4
+			suit_position1 = suit4
 		}
-	println "Cards sorted by rank are " + min + " " + minmed + " " + middle + " " + maxmed + " " + max 	// min, minmed, middle, maxmed, max
+		println "Cards sorted by rank are " + suit_position1 + rank_position1 + " " + suit_position2 + rank_position2 + " " + suit_position3 + rank_position3 + " " + suit_position4 + rank_position4
 	} // End of loop 4
 	
 	
 	if (i == 5) {
-		numrank5 = numrank
 		rank5 = rank
-		suit5 = suit	
-	println "Cards sorted by rank are " + min + " " + minmed + " " + middle + " " + maxmed + " " + max 	// min, minmed, middle, maxmed, max
+		suit5 = suit
+		println "The card you entered was " + suit5 + rank5
+	
+		if (rank5 >= rank_position4) {
+			rank_position5 = rank5
+			suit_position5 = suit5
+		} else if ((rank5 <= rank_position4) && (rank5 >= rank_position3)) {
+			rank_position5 = rank_position4
+			suit_position5 = suit_position4
+			rank_position4 = rank5
+			suit_position4 = suit5
+		} else if ((rank5 <= rank_position3) && (rank4 >= rank_position2)) {
+			rank_position5 = rank_position4
+			suit_position5 = suit_position4
+			rank_position4 = rank_position3
+			suit_position4 = suit_position3
+			rank_position3 = rank5
+			suit_position3 = suit5
+		} else if ((rank5 <= rank_position2) && (rank4 >= rank_position1)) {
+			rank_position5 = rank_position4
+			suit_position5 = suit_position4
+			rank_position4 = rank_position3
+			suit_position4 = suit_position3
+			rank_position3 = rank_position2
+			suit_position3 = suit_position2
+			rank_position2 = rank5
+			suit_position2 = suit5
+		} else if (rank5 <= rank_position1) {
+			rank_position5 = rank_position4
+			suit_position5 = suit_position4
+			rank_position4 = rank_position3
+			suit_position4 = suit_position3
+			rank_position3 = rank_position2
+			suit_position3 = suit_position2
+			rank_position2 = rank_position1
+			suit_position2 = suit_position1
+			rank_position1 = rank5
+			suit_position1 = suit5
+		}
+		println "Cards sorted by rank are " + suit_position1 + rank_position1 + " " + suit_position2 + rank_position2 + " " + suit_position3 + rank_position3 + " " + suit_position4 + rank_position4 + " " + suit_position5 + rank_position5
 	} // End of loop 5
-
-// validate the card has been entered correctly 
 
 }			//end of while statement
 
